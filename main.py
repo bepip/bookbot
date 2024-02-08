@@ -28,20 +28,34 @@ def letter_counter(text):
              letter_count[letter] = 1
     return letter_count
 
+def chapter_counter(text):
+    lowered_text = text.lower()
+    words = lowered_text.split()
+    counter = 0
+    for word in words:
+        if word != "chapter":
+            continue
+        counter += 1
+    return counter
+
 def report(path, text):
     char_dict = letter_counter(text)
     sorted_letter_list = dict_to_list(char_dict)
-    
+    chapter_count = chapter_counter(text)
+
     print (f"--- Begin report of {path} ---")
     print (f"{word_counter(text)} words found in the document")
     print("")
+    if chapter_count > 1:
+        print(f"{chapter_count} chapters found in the document")
+    if chapter_count == 1:
+        print(f"{chapter_count} chapter found in the document")
+    print()
     for letter in sorted_letter_list:
         if not letter["char"].isalpha():
             continue
         print (f"The '{letter["char"]}' character was found {letter["counter"]} times")
     print ("--- End report ---")
-
-
 
 
 
